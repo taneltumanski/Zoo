@@ -1,0 +1,83 @@
+﻿<div ng-controller="ZooController">
+    <div>
+        <button class="btn btn-primary" ng-click="addAnimal()">Add new animal</button>
+    </div>
+
+    <table class="animal-list">
+        <thead>
+            <tr>
+                <th>Specie</th>
+                <th>Name</th>
+                <th>Birthday</th>
+                <th>Age</th>
+                <th>Created at</th>
+                <th>Modified at</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr ng-repeat="animal in animals">
+                <td>{{ animal.Specie.Name }}</td>
+                <td>{{ animal.Name }}</td>
+                <td>{{ animal.BirthDate | date : shortDate }}</td>
+                <td>{{ animal.Age }}</td>
+                <td>{{ animal.CreatedAt | date : "yyyy-MM-dd 'at' HH:mm" }}</td>
+                <td>{{ animal.ModifiedAt | date : "yyyy-MM-dd 'at' HH:mm" }}</td>
+                <td><button class="btn btn-primary" ng-click="updateAnimal(animal.Id)">Edit</button></td>
+                <td><button class="btn btn-danger" ng-click="deleteAnimal(animal.Id)">Delete</button></td>
+            </tr>
+            <tr ng-show="hasAnimals()" class="animal-list-average-age">
+                <td></td>
+                <td></td>
+                <td>Average age</td>
+                <td>{{ getAverageAge() }}</td>
+                <td></td>
+            </tr>
+        </tbody>
+    </table>
+
+    <div class="modal fade" id="animalModal" role="dialog">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    <h4 class="modal-title">Animal</h4>
+                </div>
+                <div class="modal-body">
+                    <div class="form-inline">
+                        <div>
+                            <label>Species</label>
+                            <select ng-model="currentAnimal.Specie"
+                                    ng-options="specie as specie.Name for specie in species track by specie.Id">
+                            </select>
+                        </div>
+
+                        <div>
+                            <label>Name</label>
+                            <input type="text" ng-model="currentAnimal.Name" />
+                        </div>
+
+                        <div>
+                            <label>Birth date</label>
+                            <div class="input-group date">
+                                <input type="text" class="form-control" ng-model="currentAnimal.BirthDate" datepicker>
+                                <div class="input-group-addon">
+                                    <span class="glyphicon glyphicon-th"></span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div>
+                            <div ng-repeat="err in addUpdateErrors">
+                                <div class="text-danger">{{ err }}</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-success" ng-click="saveAnimal()">Save</button>
+                    <button type="button" class="btn btn-danger" data-dismiss="modal">Cancel</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
