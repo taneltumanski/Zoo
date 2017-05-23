@@ -42,9 +42,6 @@ namespace Zoo
 			// Replace default API controller activator with custom one
 			GlobalConfiguration.Configuration.Services.Replace(typeof(IHttpControllerActivator), controllerActivator);
 
-			// SignalR dependancy injection
-			GlobalHost.DependencyResolver = new WindsorDependencyResolver(Container);
-
 			AreaRegistration.RegisterAllAreas();
 			GlobalConfiguration.Configure(x => WebApiConfig.Register(x, Container));
 			FilterConfig.RegisterGlobalFilters(GlobalFilters.Filters);

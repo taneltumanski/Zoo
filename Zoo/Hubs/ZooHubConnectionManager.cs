@@ -7,7 +7,7 @@ namespace Zoo.Hubs
 	{
 		public static readonly ZooHubConnectionManager Instance = new ZooHubConnectionManager();
 
-		public ConcurrentDictionary<string, IDisposable> ConnectedUsers = new ConcurrentDictionary<string, IDisposable>();
+		public readonly ConcurrentDictionary<string, IDisposable> ConnectedUsers = new ConcurrentDictionary<string, IDisposable>();
 
 		private ZooHubConnectionManager()
 		{
