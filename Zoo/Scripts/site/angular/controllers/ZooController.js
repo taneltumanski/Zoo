@@ -19,14 +19,15 @@ app.controller('ZooController', ['$scope', 'AnimalService', 'SpeciesService',
             var zooHubProxy = $.connection.zooHub;
             zooHubProxy.client.message = function (data) {
                 $scope.$apply(function () {
+                    var animal = data.Data;
+
                     if (data.IsDeleted) {
                         for (var i = 0; i < $scope.animals.length; i++) {
-                            if ($scope.animals[i].Id == data.Id) {
+                            if ($scope.animals[i].Id == animal.Id) {
                                 $scope.animals.splice(i, 1);
                             }
                         }
                     } else {
-                        var animal = data.Data;
                         var found = false;
 
                         for (var i = 0; i < $scope.animals.length; i++) {
